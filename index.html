@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms</title>
+    
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Arial, sans-serif;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 50px 20px;
+
+        background:
+            radial-gradient(circle at 10% 20%, #4f46e5 0%, transparent 30%),
+            radial-gradient(circle at 90% 80%, #9333ea 0%, transparent 30%),
+            linear-gradient(135deg, #09090f, #17172b);
+
+        overflow-x: hidden;
+    }
+
+    /* ---------------- BACKGROUND BLOBS ---------------- */
+
+    body::before {
+        content: "";
+        position: fixed;
+
+        width: 350px;
+        height: 350px;
+
+        background: #6366f1;
+
+        border-radius: 50%;
+
+        top: -120px;
+        left: -100px;
+
+        filter: blur(100px);
+        opacity: 0.35;
+
+        animation: float1 8s infinite alternate ease-in-out;
+
+        z-index: -1;
+    }
+
+    body::after {
+        content: "";
+
+        position: fixed;
+
+        width: 350px;
+        height: 350px;
+
+        background: #a855f7;
+
+        border-radius: 50%;
+
+        bottom: -120px;
+        right: -100px;
+
+        filter: blur(100px);
+        opacity: 0.3;
+
+        animation: float2 10s infinite alternate ease-in-out;
+
+        z-index: -1;
+    }
+
+
+    /* ---------------- MAIN CONTAINER ---------------- */
+
+    h1 {
+        color: white;
+
+        text-align: center;
+
+        font-size: 34px;
+
+        margin-bottom: 25px;
+
+        letter-spacing: 1px;
+
+        text-shadow:
+            0 0 20px rgba(129, 140, 248, 0.5);
+    }
+
+
+    form {
+        width: 100%;
+        max-width: 620px;
+
+        padding: 40px;
+
+        border-radius: 24px;
+
+        background: rgba(255, 255, 255, 0.08);
+
+        border: 1px solid rgba(255, 255, 255, 0.2);
+
+        backdrop-filter: blur(20px);
+
+        box-shadow:
+            0 30px 80px rgba(0, 0, 0, 0.45),
+            inset 0 1px 1px rgba(255, 255, 255, 0.15);
+
+        animation: formIn 0.9s ease;
+
+        position: relative;
+
+        overflow: hidden;
+    }
+
+
+    /* Top shining line */
+
+    form::before {
+        content: "";
+
+        position: absolute;
+
+        top: 0;
+        left: -100%;
+
+        width: 100%;
+        height: 2px;
+
+        background: linear-gradient(
+            90deg,
+            transparent,
+            #a5b4fc,
+            transparent
+        );
+
+        animation: shine 4s infinite;
+    }
+
+
+    /* ---------------- LABELS ---------------- */
+
+    label {
+        display: block;
+
+        color: #e5e7eb;
+
+        font-size: 14px;
+
+        font-weight: bold;
+
+        margin-bottom: 8px;
+
+        letter-spacing: 0.3px;
+    }
+
+
+    /* ---------------- INPUTS ---------------- */
+
+    input,
+    select,
+    textarea {
+        width: 100%;
+
+        padding: 13px 15px;
+
+        background: rgba(255, 255, 255, 0.08);
+
+        color: white;
+
+        border: 1px solid rgba(255, 255, 255, 0.2);
+
+        border-radius: 10px;
+
+        outline: none;
+
+        font-size: 15px;
+
+        transition: all 0.3s ease;
+
+        margin-bottom: 5px;
+    }
+
+
+    input::placeholder,
+    textarea::placeholder {
+        color: #a1a1aa;
+    }
+
+
+    /* Input focus */
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        border-color: #818cf8;
+
+        background: rgba(129, 140, 248, 0.1);
+
+        box-shadow:
+            0 0 0 3px rgba(129, 140, 248, 0.15),
+            0 0 20px rgba(129, 140, 248, 0.12);
+
+        transform: translateY(-2px);
+    }
+
+
+    /* ---------------- SELECT ---------------- */
+
+    select {
+        cursor: pointer;
+    }
+
+    select option {
+        color: black;
+    }
+
+
+    /* ---------------- SUBSCRIPTION ---------------- */
+
+    h3 {
+        color: #c7d2fe;
+
+        font-size: 18px;
+
+        margin-top: 25px;
+
+        margin-bottom: 15px;
+
+        letter-spacing: 0.5px;
+    }
+
+
+    /* Radio */
+
+    input[type="radio"] {
+        width: auto;
+
+        margin-right: 5px;
+
+        accent-color: #818cf8;
+
+        cursor: pointer;
+
+        transform: scale(1.1);
+    }
+
+
+    /* Checkbox */
+
+    input[type="checkbox"] {
+        width: auto;
+
+        accent-color: #818cf8;
+
+        cursor: pointer;
+
+        transform: scale(1.1);
+    }
+
+
+    /* ---------------- TEXTAREA ---------------- */
+
+    textarea {
+        min-height: 100px;
+
+        resize: vertical;
+    }
+
+
+    /* ---------------- BUTTON ---------------- */
+
+    button {
+        width: 100%;
+
+        padding: 14px;
+
+        margin-top: 10px;
+
+        border: none;
+
+        border-radius: 10px;
+
+        color: white;
+
+        font-size: 16px;
+
+        font-weight: bold;
+
+        letter-spacing: 0.5px;
+
+        cursor: pointer;
+
+        background:
+            linear-gradient(
+                135deg,
+                #6366f1,
+                #8b5cf6
+            );
+
+        box-shadow:
+            0 10px 25px rgba(99, 102, 241, 0.3);
+
+        transition: all 0.3s ease;
+
+        position: relative;
+
+        overflow: hidden;
+    }
+
+
+    /* Button shine */
+
+    button::before {
+        content: "";
+
+        position: absolute;
+
+        top: 0;
+        left: -100%;
+
+        width: 70%;
+        height: 100%;
+
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,0.25),
+            transparent
+        );
+
+        transform: skewX(-20deg);
+
+        transition: 0.6s;
+    }
+
+
+    button:hover::before {
+        left: 130%;
+    }
+
+
+    button:hover {
+        transform: translateY(-3px);
+
+        box-shadow:
+            0 15px 35px rgba(99, 102, 241, 0.45);
+    }
+
+
+    button:active {
+        transform: scale(0.98);
+    }
+
+
+    /* ---------------- SPACING ---------------- */
+
+    form > div {
+        margin-bottom: 18px;
+    }
+
+
+    /* ---------------- ANIMATIONS ---------------- */
+
+    @keyframes formIn {
+
+        from {
+            opacity: 0;
+
+            transform:
+                translateY(50px)
+                scale(0.95);
+        }
+
+        to {
+            opacity: 1;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+    }
+
+
+    @keyframes float1 {
+
+        from {
+            transform:
+                translate(0, 0)
+                scale(1);
+        }
+
+        to {
+            transform:
+                translate(120px, 80px)
+                scale(1.2);
+        }
+    }
+
+
+    @keyframes float2 {
+
+        from {
+            transform:
+                translate(0, 0)
+                scale(1);
+        }
+
+        to {
+            transform:
+                translate(-100px, -100px)
+                scale(1.15);
+        }
+    }
+
+
+    @keyframes shine {
+
+        0% {
+            left: -100%;
+        }
+
+        50% {
+            left: 100%;
+        }
+
+        100% {
+            left: 100%;
+        }
+    }
+
+
+    /* ---------------- MOBILE ---------------- */
+
+    @media (max-width: 600px) {
+
+        body {
+            padding: 25px 12px;
+        }
+
+        form {
+            padding: 25px 20px;
+        }
+
+        h1 {
+            font-size: 27px;
+        }
+    }
+</style>
+
+
+
+
+</head>
+<body>
+  
+
+    <form action = "/sumbit.php">
+        <div>
+            <lable for="connect">Name</lable>
+            <input type="text" id="connect" placeholder="Enter your name" required>
+        </div>
+        <br>
+        <div>
+            <lable for = "ph">Phone</lable>
+            <input id = "ph" type="phone" placeholder="Enter your phone no." required>
+
+        </div>
+        <br>
+        <div>
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="Enter Email ID" required>
+        </div>
+        <br>
+        <div>
+            <label for="pass">Password</label>
+            <input id="pass" type="password" placeholder="Password" required>
+        </div>
+        <br>
+
+        <div>
+            <label for = "dob">Date of birth</label>
+            <input id = "dob" type="date" required>
+        </div>
+
+        <div>
+           <label for="gender">Gender</label>
+           <select>
+            <option value="" disabled selected>Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Others</option>
+           </select>
+        </div>
+
+        <div>
+            <h3>Subscription plan</h3>
+            
+
+            <label for="basic">Basic</label>
+            <input id="basic" type="radio" name="plan" value="Basic">
+
+            <label for = "gold">Gold</label>
+            <input id="gold" type="radio" name="plan" value="Gold">
+
+            <label for="vip">VIP</label>
+            <input id="vip" type="radio" name="plan" value="VIP">
+
+        </div>
+         <br>
+        <div>
+           
+            <input id="terms" type="checkbox" required>
+             <label for="terms">I agree to terms nd conditions</label>
+        </div>
+        <br>
+        <div>
+        <label for="comments">Comments</label>
+        <textarea id="comments" placeholder="Enter your comment" rows="4"></textarea>
+        </div>
+        <br>
+        <button type="sumbit">
+            sumbit
+        </button>
+
+
+
+    </form>
+</body>
+</html>
